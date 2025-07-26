@@ -33,7 +33,7 @@ main:has(.back-link) {
 
 /* ----------------------------------------------- */
 .is-hidden {
-  display: none !important;
+  display: none;
   visibility: hidden;
   opacity: 0;
   pointer-events: none;

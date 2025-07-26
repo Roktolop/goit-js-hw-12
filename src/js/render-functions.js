@@ -64,12 +64,22 @@ export function hideLoader() {
     loader.classList.remove('is-visible');
 }
 
-export function showLoadMore() {
-  const btnLoadMore = document.querySelector('.loadMore');
+export function showLoadMoreBtn() {
+  const btnLoadMore = document.querySelector('.loadMore-btn');
   btnLoadMore.classList.remove('is-hidden');
 }
 
-export function hideLoadMore() {
-  const btnLoadMore = document.querySelector('.loadMore');
+export function hideLoadMoreBtn() {
+  const btnLoadMore = document.querySelector('.loadMore-btn');
   btnLoadMore.classList.add('is-hidden');
+}
+
+export function showMoreLoader() {
+  const moreLoader = document.querySelector("#btn-loader")
+  moreLoader.classList.remove('is-hidden');
+}
+
+export function hideMoreLoader() {
+  const moreLoader = document.querySelector("#btn-loader")
+  moreLoader.classList.add('is-hidden');
 }

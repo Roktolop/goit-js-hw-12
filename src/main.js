@@ -9,14 +9,17 @@ import {
   clearGallery,
   hideLoader,
   showLoader,
-  hideLoadMore,
-  showLoadMore,
+  hideLoadMoreBtn,
+  showLoadMoreBtn,
+  hideMoreLoader,
+  showMoreLoader,
 } from './js/render-functions.js';
 import { getImagesByQuery } from './js/pixabay-api.js';
 
 const form = document.querySelector('.form');
 const input = document.querySelector('input[name="search-text"]');
-const btnLoadMore = document.querySelector('.loadMore');
+const btnLoadMore = document.querySelector('.loadMore-btn');
+const moreLoader = document.querySelector("#btn-loader")
 
 
 let currentPage = 1;
@@ -43,7 +46,7 @@ async function onFormSubmit(event) {
   }
 
   clearGallery();
-  hideLoadMore();
+  hideLoadMoreBtn();
   showLoader();
 
   try {
@@ -54,7 +57,7 @@ async function onFormSubmit(event) {
     totalAvailableImages = totalHits;
     createGallery(images);
     currentPage += 1;
-    showLoadMore();
+    showLoadMoreBtn();
   } catch (error) {
     console.error('Error fetching images:', error);
   } finally {
@@ -63,19 +66,21 @@ async function onFormSubmit(event) {
 }
 
 async function onLoadMore() {
-  showLoader();
+  hideLoadMoreBtn();
+  showMoreLoader();
 
   try {
     const { images } = await getImagesByQuery(currentQuery, currentPage);
 
     createGallery(images);
-
     currentPage += 1;
-    showLoadMore();
+
+    showLoadMoreBtn();
   } catch (error) {
     console.error('Error loading more images:', error);
   } finally {
-    hideLoader();
+    hideMoreLoader();
+   
   }
 }
 
