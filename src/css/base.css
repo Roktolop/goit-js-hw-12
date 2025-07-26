@@ -32,6 +32,13 @@ main:has(.back-link) {
 }
 
 /* ----------------------------------------------- */
+.is-hidden {
+  display: none !important;
+  visibility: hidden;
+  opacity: 0;
+  pointer-events: none;
+}
+
 .text {
   font-weight: 600;
   font-size: 12px;
@@ -50,6 +57,7 @@ main:has(.back-link) {
 .gallery-container {
   width: 1158px;
   margin: 0 auto;
+  margin-bottom: 32px;
 }
 
 .form {
@@ -85,6 +93,7 @@ main:has(.back-link) {
   min-height: 200px;
 }
 
+
 .gallery-image {
   height: 260px;
 }
@@ -106,4 +115,8 @@ main:has(.back-link) {
   line-height: 200%;
   letter-spacing: 0.04em;
   color: #2e2f42;
+}
+
+.loadMore {
+
 }
