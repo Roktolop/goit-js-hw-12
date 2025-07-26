@@ -73,9 +73,20 @@ async function onLoadMore() {
     const { images } = await getImagesByQuery(currentQuery, currentPage);
 
     createGallery(images);
+
+    const firstGalleryItem = document.querySelector('.gallery-item');
+    if (firstGalleryItem) {
+      const cardHeight = firstGalleryItem.getBoundingClientRect().height;
+
+      window.scrollBy({
+        top: cardHeight * 2,
+        behavior: 'smooth',
+      });
+    }
+
     currentPage += 1;
 
-    if (currentPage * perPage >= totalHits) {
+    if (currentPage * perPage >= totalAvailableImages) {
       hideLoadMoreBtn();
       iziToast.info({
         title: 'Warning',
