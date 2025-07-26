@@ -75,6 +75,15 @@ async function onLoadMore() {
     createGallery(images);
     currentPage += 1;
 
+    if (currentPage * perPage >= totalHits) {
+      hideLoadMoreBtn();
+      return console.log(`We're sorry, but you've reached the end of search results.
+`);
+      
+    } else {
+      showLoadMoreBtn();
+    }
+
     showLoadMoreBtn();
   } catch (error) {
     console.error('Error loading more images:', error);
