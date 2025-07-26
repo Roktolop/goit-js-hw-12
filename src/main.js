@@ -77,8 +77,11 @@ async function onLoadMore() {
 
     if (currentPage * perPage >= totalHits) {
       hideLoadMoreBtn();
-      return console.log(`We're sorry, but you've reached the end of search results.
-`);
+      iziToast.info({
+        title: 'Warning',
+        message: `We're sorry, but you've reached the end of search results.`,
+        position: 'topRight',
+    });
       
     } else {
       showLoadMoreBtn();
