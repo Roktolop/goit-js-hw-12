@@ -5,7 +5,7 @@ import iziToast from "izitoast";
 
 const API_KEY = "51409693-2d1545100387263aa5c533cc2";
 
-let perPage = 15;
+export let perPage = 15;
 
 export async function getImagesByQuery(query, page = 1) {
   try {

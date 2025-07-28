@@ -15,7 +15,7 @@ import {
   showMoreLoader,
 } from './js/render-functions.js';
 
-import { getImagesByQuery } from './js/pixabay-api.js';
+import { getImagesByQuery, perPage } from './js/pixabay-api.js';
 
 const form = document.querySelector('.form');
 const input = document.querySelector('input[name="search-text"]');
@@ -24,7 +24,6 @@ const btnLoadMore = document.querySelector('.loadMore-btn');
 let currentPage = 1;
 let currentQuery = '';
 let totalAvailableImages = 0;
-const perPage = 15;
 
 form.addEventListener('submit', onFormSubmit);
 btnLoadMore.addEventListener('click', onLoadMore);
@@ -94,11 +93,24 @@ async function onLoadMore() {
 
   try {
     const { images } = await getImagesByQuery(currentQuery, currentPage);
+
+    if (!images || images.length === 0) {
+      iziToast.info({
+        title: 'Info',
+        message: 'No more images found.',
+        position: 'topRight',
+      });
+      hideLoadMoreBtn();
+      return;
+    }
+
     createGallery(images);
 
+    // Плавне прокручування
     const firstGalleryItem = document.querySelector('.gallery-item');
     if (firstGalleryItem) {
       const cardHeight = firstGalleryItem.getBoundingClientRect().height;
+
       window.scrollBy({
         top: cardHeight * 2,
         behavior: 'smooth',
@@ -107,25 +119,28 @@ async function onLoadMore() {
 
     currentPage += 1;
 
-    if (currentPage * perPage >= totalAvailableImages) {
+    // Перевірка фактичної кількості зображень у галереї
+    const totalLoadedImages = document.querySelectorAll('.gallery-item').length;
+
+    if (totalLoadedImages >= totalAvailableImages) {
       hideLoadMoreBtn();
       iziToast.info({
-        title: 'End of results',
+        title: 'End of Results',
         message: `You've reached the end of search results.`,
         position: 'topRight',
       });
     } else {
       showLoadMoreBtn();
     }
-
   } catch (error) {
     console.error('Error loading more images:', error);
     iziToast.error({
       title: 'Error',
-      message: 'Failed to load more images.',
+      message: 'Failed to load more images. Please try again later.',
       position: 'topRight',
     });
   } finally {
     hideMoreLoader();
   }
 }
+
